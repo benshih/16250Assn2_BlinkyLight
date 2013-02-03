@@ -82,11 +82,11 @@ int buttonPressed()
 {
 	if(READBUTTON)
 	{
-		return 0;
+		return 1;
 	}
 	else
 	{
-		return 1;
+		return 0;
 	}
 }
 //http://atmega32-avr.com/reading-switches-with-using-attiny-microcontrollers/
