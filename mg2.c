@@ -21,7 +21,33 @@ The LEDs are on when their signal is low, off when signal is high
 #define GREEN PA7
 #define BLUE PA3
 #define BUTTON PB2
-#define READBUTTON ~PINB & 0x04
+#define READBUTTON PINB & _BV(PB2)
+
+/* Brian Kirby's thought process in debugging my logic problem:
+(PIN & _BV(PB2))
+
+0b0000 0100
+PB2 -> 2
+_BV(PB2)  --> 0x01 << PB2
+
+uint8_t value = PINB & _BV(PB2)
+
+0bxxxx x?xx
+
+if(value == 0)
+	PRESSED BUTTON
+ELSE
+	NOT PRESSED BUTTON
+
+
+XXXX X(!?)XX
+
+IF VALUE == 0
+	NOT PRESSED
+	ELSE
+	PRESSED
+
+*/
 
 /*  In the if-else statements here you should set the appropriate
     LED pin to high or low based on the input.  For example, if r
@@ -82,11 +108,11 @@ int buttonPressed()
 {
 	if(READBUTTON)
 	{
-		return 1;
+		return 0;
 	}
 	else
 	{
-		return 0;
+		return 1;
 	}
 }
 //http://atmega32-avr.com/reading-switches-with-using-attiny-microcontrollers/
